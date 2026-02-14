@@ -51,16 +51,28 @@ public class HomeFragment extends Fragment {
         });
 
         // --- 2. Setup Available Cars (Normal Horizontal List) ---
+        // Inside onCreateView...
+
         RecyclerView recyclerView = view.findViewById(R.id.recyclerCars);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
+// 1. Use VERTICAL layout (Default)
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+// Note: We removed LinearLayoutManager.HORIZONTAL
+
+        recyclerView.setLayoutManager(layoutManager);
+
+// 2. Optimization for scrolling inside NestedScrollView
+        recyclerView.setNestedScrollingEnabled(false);
+
+// 3. Set Adapter as before
         List<Car> availableCars = new ArrayList<>();
-        availableCars.add(new Car("Honda Civic", "$ 25,000", R.drawable.ic_launcher_background));
-        availableCars.add(new Car("Toyota Camry", "$ 28,000", R.drawable.ic_launcher_background));
-        availableCars.add(new Car("Ford Mustang", "$ 55,000", R.drawable.ic_launcher_background));
+        availableCars.add(new Car("Mercedes C-Class", "$ 42,000", R.drawable.ic_launcher_background));
+        availableCars.add(new Car("Audi A4", "$ 39,500", R.drawable.ic_launcher_background));
+        availableCars.add(new Car("Tesla Model 3", "$ 41,000", R.drawable.ic_launcher_background));
+        availableCars.add(new Car("BMW 3 Series", "$ 44,000", R.drawable.ic_launcher_background));
 
-        CarAdapter carAdapter = new CarAdapter(availableCars);
-        recyclerView.setAdapter(carAdapter);
+        CarAdapter adapter = new CarAdapter(availableCars);
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
