@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#050505"
+    android:background="@color/background"
     tools:context=".MainActivity">
 
     <!-- Decorative Top Background -->
-    <View
+  <!--  <View
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:background="@drawable/bg_gradient_glow"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="-100dp"
-        android:layout_marginEnd="-100dp" />
+        android:layout_marginEnd="-100dp"
+        android:alpha="0.2" /> -->
 
     <LinearLayout
         android:id="@+id/headerLayout"
@@ -30,13 +31,13 @@
             android:layout_height="40dp"
             android:src="@drawable/ic_velocity_bolt"
             android:layout_marginBottom="16dp"
-            app:tint="#E63946" /> -->
+            app:tint="@color/accent" /> -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Car DealerShip App"
-            android:textColor="#FFFFFF"
-            android:textSize="34sp"
+            android:text="Car Dealership"
+            android:textColor="@color/text_main"
+            android:textSize="46sp"
             android:textStyle="bold"
             android:letterSpacing="-0.02" />
 
@@ -44,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Welcome back!"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/text_main"
             android:textSize="34sp"
             android:textStyle="bold"
             android:letterSpacing="-0.02" />
@@ -53,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign in to your premium garage."
-            android:textColor="#888888"
+            android:textColor="@color/text_dim"
             android:textSize="14sp"
             android:layout_marginTop="4dp" /> -->
     </LinearLayout>
@@ -69,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NAME"
-            android:textColor="#666666"
+            android:textColor="@color/text_dim"
             android:textSize="10sp"
             android:textStyle="bold"
             android:letterSpacing="0.1"
@@ -81,8 +82,8 @@
             android:layout_height="56dp"
             android:background="@drawable/bg_input_field"
             android:hint="Enter your name"
-            android:textColorHint="#444444"
-            android:textColor="#FFFFFF"
+            android:textColorHint="@color/text_dim"
+            android:textColor="@color/text_main"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:inputType="textPersonName"
@@ -92,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PASSWORD"
-            android:textColor="#666666"
+            android:textColor="@color/text_dim"
             android:textSize="10sp"
             android:textStyle="bold"
             android:letterSpacing="0.1"
@@ -104,8 +105,8 @@
             android:layout_height="56dp"
             android:background="@drawable/bg_input_field"
             android:hint="••••••••"
-            android:textColorHint="#444444"
-            android:textColor="#FFFFFF"
+            android:textColorHint="@color/text_dim"
+            android:textColor="@color/text_main"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:inputType="textPassword"
@@ -115,9 +116,9 @@
             android:id="@+id/btnSignIn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:backgroundTint="#E63946"
+            android:backgroundTint="@color/primary"
             android:text="SIGN IN"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/text_main"
             android:textStyle="bold"
             android:letterSpacing="0.1"
             app:cornerRadius="16dp"
@@ -127,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Forgot Password?"
-            android:textColor="#E63946"
+            android:textColor="@color/accent"
             android:textSize="12sp"
             android:textStyle="bold"
             android:layout_gravity="center"
@@ -139,7 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Don't have an account? Register"
-        android:textColor="#666666"
+        android:textColor="@color/text_dim"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
