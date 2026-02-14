@@ -2,11 +2,12 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="160dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="12dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="@color/secondary"
     app:cardElevation="4dp">
 
     <LinearLayout
@@ -14,11 +15,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Placeholder for Car Image -->
+        <!-- Made image taller (180dp) since card is wider now -->
         <ImageView
             android:id="@+id/imgCar"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="180dp"
             android:src="@drawable/ic_launcher_background"
             android:scaleType="centerCrop"/>
 
@@ -26,24 +27,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:padding="16dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Name -->
+                <TextView
+                    android:id="@+id/tvCarName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tesla Model S"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_main" />
+
+                <!-- Price (Aligned to right) -->
+                <TextView
+                    android:id="@+id/tvCarPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$ 89,000"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/accent"/>
+            </LinearLayout>
+
+            <!-- Extra Details (Optional) -->
             <TextView
-                android:id="@+id/tvCarName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tesla Model S"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:ellipsize="end"/>
+                android:text="Electric • 396 mi range • AWD"
+                android:textColor="@color/text_dim"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"/>
 
-            <TextView
-                android:id="@+id/tvCarPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$ 89,000"
-                android:textColor="#4CAF50"
-                android:layout_marginTop="4dp"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
