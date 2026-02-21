@@ -73,13 +73,13 @@
             app:iconTint="@color/text_main" />
 
         <Button
-            android:id="@+id/btnChangeBalance"
+            android:id="@+id/btnChangeLanguage"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:backgroundTint="@color/primary"
             android:gravity="center_vertical|start"
             android:paddingStart="24dp"
-            android:text="Change Balance"
+            android:text="Change Language"
             android:textColor="@color/text_main"
             android:textAllCaps="false"
             android:textSize="16sp"

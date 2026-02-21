@@ -8,7 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alissar.cardealershipapp.R;
 
-public class ChangeBalanceActivity extends AppCompatActivity {
+public class ChangeLanguageActivity extends AppCompatActivity {
+
 
     private EditText etBalance;
     private SharedPreferences prefs;
@@ -16,13 +17,13 @@ public class ChangeBalanceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_balance);
+        setContentView(R.layout.activity_change_language);
 
         prefs = getSharedPreferences("UserProfile", MODE_PRIVATE);
-        etBalance = findViewById(R.id.etBalance);
+        etBalance = findViewById(R.id.etLanguage);
 
-        Button btnSave = findViewById(R.id.btnSaveBalance);
-        Button btnCancel = findViewById(R.id.btnCancelBalance);
+        Button btnSave = findViewById(R.id.btnSaveLanguage);
+        Button btnCancel = findViewById(R.id.btnCancelLanguage);
 
         // Load existing balance
         etBalance.setText(prefs.getString("balance", "0.00"));

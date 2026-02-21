@@ -7,10 +7,10 @@
     android:padding="32dp">
 
     <TextView
-        android:id="@+id/tvBalanceTitle"
+        android:id="@+id/tvLanguageTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Balance"
+        android:text="Change Language"
         android:textColor="@color/text_main"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -22,20 +22,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/tvBalanceTitle">
+        app:layout_constraintTop_toBottomOf="@id/tvLanguageTitle">
 
-        <TextView style="@style/InputLabel" android:text="CURRENT BALANCE ($)" />
+        <TextView style="@style/InputLabel" android:text="CURRENT LANGUAGE" />
 
         <EditText
-            android:id="@+id/etBalance"
+            android:id="@+id/etLanguage"
             style="@style/CustomInput"
-            android:hint="0.00"
-            android:inputType="numberDecimal" />
+            android:hint="English" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update your store credit or garage funds."
+            android:text="Type the language to what you want."
             android:textColor="@color/text_dim"
             android:textSize="12sp"
             android:layout_marginTop="8dp" />
@@ -50,7 +49,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/btnCancelBalance"
+            android:id="@+id/btnCancelLanguage"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_weight="1"
@@ -61,7 +60,7 @@
             app:cornerRadius="12dp" />
 
         <Button
-            android:id="@+id/btnSaveBalance"
+            android:id="@+id/btnSaveLanguage"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_weight="1"

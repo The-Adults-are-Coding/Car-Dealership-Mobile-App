@@ -17,7 +17,7 @@ public class MeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_me);
 
         Button btnPersonalInfo = findViewById(R.id.btnPersonalInfo);
-        Button btnChangeBalance = findViewById(R.id.btnChangeBalance);
+        Button btnChangeBalance = findViewById(R.id.btnChangeLanguage);
         Button btnLogout = findViewById(R.id.btnLogout);
         TextView tvChangePhoto = findViewById(R.id.tvChangePhoto);
 
@@ -27,7 +27,7 @@ public class MeActivity extends AppCompatActivity {
         });
 
         btnChangeBalance.setOnClickListener(v -> {
-            Intent intent = new Intent(MeActivity.this, ChangeBalanceActivity.class);
+            Intent intent = new Intent(MeActivity.this, ChangeLanguageActivity.class);
             startActivity(intent);
         });
 
