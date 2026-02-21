@@ -36,6 +36,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.inventory.CarInventoryActivity"
+            android:exported="true"
+            android:parentActivityName=".ui.main.MainActivity"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.profile.PersonalInfoActivity"/>
+        <activity android:name=".ui.profile.ChangeLanguageActivity"/>
+
     </application>
 
 </manifest>

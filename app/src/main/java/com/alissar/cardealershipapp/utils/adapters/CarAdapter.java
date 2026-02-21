@@ -1,4 +1,4 @@
-package com.alissar.cardealershipapp.ui.main;
+package com.alissar.cardealershipapp.utils.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
