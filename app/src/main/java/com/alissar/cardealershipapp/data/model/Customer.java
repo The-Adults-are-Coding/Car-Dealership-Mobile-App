@@ -1,4 +1,4 @@
-package com.alissar.cardealershipapp;
+package com.alissar.cardealershipapp.data.model;
 public class Customer {
 
     // Private variables matching database columns

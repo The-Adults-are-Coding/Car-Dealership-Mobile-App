@@ -1,10 +1,12 @@
-package com.alissar.cardealershipapp;
+package com.alissar.cardealershipapp.ui.profile;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.alissar.cardealershipapp.R;
 
 public class ChangeBalanceActivity extends AppCompatActivity {
 
