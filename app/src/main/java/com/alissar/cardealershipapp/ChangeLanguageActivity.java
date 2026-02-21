@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ChangeBalanceActivity extends AppCompatActivity {
+public class ChangeLanguageActivity extends AppCompatActivity {
 
     private EditText etBalance;
     private SharedPreferences prefs;
@@ -14,7 +14,7 @@ public class ChangeBalanceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_balance);
+        setContentView(R.layout.activity_change_language);
 
         prefs = getSharedPreferences("UserProfile", MODE_PRIVATE);
         etBalance = findViewById(R.id.etBalance);

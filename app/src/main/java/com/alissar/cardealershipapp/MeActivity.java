@@ -24,7 +24,7 @@ public class MeActivity extends AppCompatActivity {
         });
 
         btnChangeBalance.setOnClickListener(v -> {
-            Intent intent = new Intent(MeActivity.this, ChangeBalanceActivity.class);
+            Intent intent = new Intent(MeActivity.this, ChangeLanguageActivity.class);
             startActivity(intent);
         });
 
