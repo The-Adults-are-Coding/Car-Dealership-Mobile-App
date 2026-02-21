@@ -27,6 +27,10 @@ import com.alissar.cardealershipapp.R;
 import com.alissar.cardealershipapp.data.model.Customer;
 import com.alissar.cardealershipapp.ui.main.MainActivity;
 
+import com.alissar.cardealershipapp.R;
+import com.alissar.cardealershipapp.data.model.Customer;
+import com.alissar.cardealershipapp.ui.main.MainActivity;
+
 public class UserRegister extends AppCompatActivity {
 
     // Declare UI elements - changed to EditText

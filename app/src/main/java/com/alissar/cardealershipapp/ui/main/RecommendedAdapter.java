@@ -1,5 +1,8 @@
+// File: app/src/main/java/com/alissar/cardealershipapp/ui/main/RecommendedAdapter.java
 package com.alissar.cardealershipapp.ui.main;
 
+import android.content.Intent; // ADD THIS IMPORT
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alissar.cardealershipapp.R;
 import com.alissar.cardealershipapp.data.model.Car;
+import com.alissar.cardealershipapp.ui.purchase.CarDetailsActivity;
 
 import java.util.List;
 
@@ -31,18 +35,23 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RecViewHolder holder, int position) {
-        // Modulo logic: If position is 100 and list size is 3, it fetches item at index 1
         int actualPosition = position % recommendedList.size();
-
         Car car = recommendedList.get(actualPosition);
+
         holder.tvName.setText(car.getName());
         holder.tvPrice.setText(car.getPrice());
         holder.imgCar.setImageResource(car.getImageResId());
+
+        // --- ADD THIS CLICK LISTENER ---
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), CarDetailsActivity.class);
+            intent.putExtra("car_data", (Parcelable) car); // Passes the clicked car object
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override
     public int getItemCount() {
-        // Return a huge number so the user can scroll "forever"
         return Integer.MAX_VALUE;
     }
 
