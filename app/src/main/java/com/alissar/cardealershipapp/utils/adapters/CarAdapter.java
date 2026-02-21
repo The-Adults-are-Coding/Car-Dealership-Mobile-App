@@ -1,5 +1,4 @@
-// File: app/src/main/java/com/alissar/cardealershipapp/ui/main/CarAdapter.java
-package com.alissar.cardealershipapp.ui.main;
+package com.alissar.cardealershipapp.utils.adapters;
 
 import android.content.Intent; // ADD THIS IMPORT
 import android.os.Parcelable;

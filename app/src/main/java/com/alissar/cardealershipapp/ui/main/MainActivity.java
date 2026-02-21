@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
                 selectedFragment = new HomeFragment();
             } else if (id == R.id.nav_history) {
                 // selectedFragment = new HistoryFragment(); // Create this class similarly
-                selectedFragment = new HomeFragment(); // Using Home for demo
+                selectedFragment = new HistoryFragment(); // Using Home for demo
             } else if (id == R.id.nav_profile) {
                 // selectedFragment = new ProfileFragment(); // Create this class similarly
-                selectedFragment = new HomeFragment(); // Using Home for demo
+                selectedFragment = new ProfileFragment(); // Using Home for demo
             }
 
             if (selectedFragment != null) {
