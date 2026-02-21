@@ -1,11 +1,13 @@
 package com.alissar.cardealershipapp.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +18,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.alissar.cardealershipapp.R;
 import com.alissar.cardealershipapp.data.model.Car;
+import com.alissar.cardealershipapp.ui.inventory.CarInventoryActivity;
+import com.alissar.cardealershipapp.utils.adapters.CarAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +80,16 @@ public class HomeFragment extends Fragment {
 
         CarAdapter adapter = new CarAdapter(availableCars);
         recyclerView.setAdapter(adapter);
+
+        // Inside HomeFragment.java -> onCreateView method
+
+        Button btnShowAll = view.findViewById(R.id.btnShowAll);
+
+        btnShowAll.setOnClickListener(v -> {
+            // Navigate to InventoryActivity
+            Intent intent = new Intent(getActivity(), CarInventoryActivity.class);
+            startActivity(intent);
+        });
 
         return view;
     }
