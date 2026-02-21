@@ -1,10 +1,13 @@
-package com.alissar.cardealershipapp.ui.auth;
+package com.alissar.cardealershipapp.ui.register;
+
+import static com.alissar.cardealershipapp.utils.Resource.Status.LOADING;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.alissar.cardealershipapp.R;
+import com.alissar.cardealershipapp.data.model.Customer;
+import com.alissar.cardealershipapp.ui.login.LogInActivity;
+import com.alissar.cardealershipapp.ui.main.MainActivity;
 
 public class UserRegister extends AppCompatActivity {
 
@@ -24,12 +33,17 @@ public class UserRegister extends AppCompatActivity {
     private EditText editTextOccupation;
     private Button buttonSubmit;
     private TextView footerText;
+    private RegisterViewModel viewModel;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_user_register);
+        viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+
+
 
         // Initialize UI elements
         initViews();
@@ -46,6 +60,7 @@ public class UserRegister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registerCustomer();
+                handleRegistration();
             }
         });
 
@@ -70,6 +85,8 @@ public class UserRegister extends AppCompatActivity {
         editTextOccupation = findViewById(R.id.editTextOccupation);
         buttonSubmit = findViewById(R.id.buttonSubmit);
         footerText = findViewById(R.id.footerText);
+        progressBar = findViewById(R.id.login_progress_bar);
+
     }
 
     /**
@@ -199,5 +216,38 @@ public class UserRegister extends AppCompatActivity {
         editTextPhone.setError(null);
         editTextAddress.setError(null);
         editTextOccupation.setError(null);
+    }
+
+    private void handleRegistration() {
+        String name = etName.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+        String phone = etPhone.getText().toString().trim();
+
+        // Basic Validation
+        if (name.isEmpty() || email.isEmpty() || password.length() < 6) {
+            Toast.makeText(this, "Please fill all fields correctly", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        viewModel.register(name, email, password, phone).observe(this, resource -> {
+            switch (resource.status) {
+                case LOADING:
+                    btnRegister.setEnabled(false);
+                    progressBar.setVisibility(View.VISIBLE);
+                    break;
+                case SUCCESS:
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
+                    // Navigate to Login or Main
+                    finish();
+                    break;
+                case ERROR:
+                    btnRegister.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(this, resource.message, Toast.LENGTH_LONG).show();
+                    break;
+            }
+        });
     }
 }
