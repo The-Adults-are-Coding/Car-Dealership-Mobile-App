@@ -1,5 +1,8 @@
+// File: app/src/main/java/com/alissar/cardealershipapp/ui/main/CarAdapter.java
 package com.alissar.cardealershipapp.ui.main;
 
+import android.content.Intent; // ADD THIS IMPORT
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alissar.cardealershipapp.R;
 import com.alissar.cardealershipapp.data.model.Car;
+import com.alissar.cardealershipapp.ui.purchase.CarDetailsActivity;
 
 import java.util.List;
 
@@ -35,6 +39,13 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
         holder.tvName.setText(car.getName());
         holder.tvPrice.setText(car.getPrice());
         holder.imgCar.setImageResource(car.getImageResId());
+
+        // --- ADD THIS CLICK LISTENER ---
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), CarDetailsActivity.class);
+            intent.putExtra("car_data", car); // Passes the car object
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override
