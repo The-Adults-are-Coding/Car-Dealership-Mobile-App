@@ -1,4 +1,4 @@
-package com.alissar.cardealershipapp;
+package com.alissar.cardealershipapp.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
