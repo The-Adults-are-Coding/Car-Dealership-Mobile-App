@@ -32,6 +32,8 @@
 
             </intent-filter>
         </activity>
+        <activity android:name=".ui.profile.PersonalInfoActivity"/>
+        <activity android:name=".ui.profile.ChangeLanguageActivity"/>
 
     </application>
 
