@@ -172,6 +172,15 @@
             android:layout_marginBottom="20dp" />
 
         <!-- Register Button - Slightly smaller -->
+        <ProgressBar
+            android:id="@+id/register_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
         <Button
             android:id="@+id/buttonSubmit"
             android:layout_width="match_parent"
