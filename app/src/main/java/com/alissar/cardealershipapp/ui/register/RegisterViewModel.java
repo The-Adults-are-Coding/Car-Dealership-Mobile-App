@@ -21,8 +21,9 @@ public class RegisterViewModel extends ViewModel {
         this.repository = repository;
     }
 
-    public LiveData<Resource<AuthResponse>> register(String name, String email, String password, String phone) {
-        RegisterRequest request = new RegisterRequest(name, email, password, phone);
+    public LiveData<Resource<AuthResponse>> register(String nationalId, String address, String occupation, String firstName, String lastName,
+                                                     String email, String password, String phone) {
+        RegisterRequest request = new RegisterRequest(firstName,lastName, email, password, phone, nationalId, address, occupation);
         return repository.registerUser(request);
     }
 }
