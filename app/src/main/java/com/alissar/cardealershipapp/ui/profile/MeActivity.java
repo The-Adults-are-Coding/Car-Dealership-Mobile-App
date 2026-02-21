@@ -1,10 +1,13 @@
-package com.alissar.cardealershipapp;
+package com.alissar.cardealershipapp.ui.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.alissar.cardealershipapp.ui.main.MainActivity;
+import com.alissar.cardealershipapp.R;
 
 public class MeActivity extends AppCompatActivity {
 

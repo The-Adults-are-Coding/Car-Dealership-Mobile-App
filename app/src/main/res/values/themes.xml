@@ -1,9 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.CarDealershipApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
+    <style name="Theme.CarDealershipApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Status Bar Color -->
+        <item name="android:statusBarColor">@color/background</item>
+        <!-- Light text on Status Bar? No, we have dark bg, so we need light text -->
+        <item name="android:windowLightStatusBar">false</item>
 
-    <style name="Theme.CarDealershipApp" parent="Base.Theme.CarDealershipApp" />
+        <!-- Default Background -->
+        <item name="android:windowBackground">@color/background</item>
+    </style>
 </resources>

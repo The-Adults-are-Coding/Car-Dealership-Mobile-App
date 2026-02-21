@@ -1,4 +1,4 @@
-package com.alissar.cardealershipapp;
+package com.alissar.cardealershipapp.ui.profile;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -6,7 +6,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alissar.cardealershipapp.R;
+
 public class ChangeLanguageActivity extends AppCompatActivity {
+
 
     private EditText etBalance;
     private SharedPreferences prefs;
@@ -17,10 +20,10 @@ public class ChangeLanguageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_language);
 
         prefs = getSharedPreferences("UserProfile", MODE_PRIVATE);
-        etBalance = findViewById(R.id.etBalance);
+        etBalance = findViewById(R.id.etLanguage);
 
-        Button btnSave = findViewById(R.id.btnSaveBalance);
-        Button btnCancel = findViewById(R.id.btnCancelBalance);
+        Button btnSave = findViewById(R.id.btnSaveLanguage);
+        Button btnCancel = findViewById(R.id.btnCancelLanguage);
 
         // Load existing balance
         etBalance.setText(prefs.getString("balance", "0.00"));

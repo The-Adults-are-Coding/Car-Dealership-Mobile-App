@@ -1,4 +1,4 @@
-package com.alissar.cardealershipapp;
+package com.alissar.cardealershipapp.ui.auth;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.alissar.cardealershipapp.R;
 
 public class LogInActivity extends AppCompatActivity {
 
