@@ -67,4 +67,16 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
         this.carList = newCars;
         notifyDataSetChanged();
     }
+
+    // Inside your Adapter class
+    public void addData(List<Car> newCars) {
+        // If you are passing the FULL list from ViewModel every time (as done in Step 4),
+        // then notifyDataSetChanged is fine.
+        this.carList = newCars;
+        notifyDataSetChanged();
+
+        // OPTIMIZATION TIP:
+        // Ideally, calculate the difference and use notifyItemRangeInserted
+        // for smoother animations, but notifyDataSetChanged is okay for now.
+    }
 }

@@ -2,6 +2,7 @@ package com.alissar.cardealershipapp.data.repository;
 
 import android.util.Log;
 
+import com.alissar.cardealershipapp.data.model.PaginatedResponse;
 import com.alissar.cardealershipapp.data.remote.CarApiService;
 import com.alissar.cardealershipapp.data.model.Car;
 import androidx.lifecycle.MutableLiveData;
@@ -22,24 +23,33 @@ public class CarRepository {
     public CarRepository(CarApiService apiService) {
         this.apiService = apiService;
     }
+    public interface DataCallback {
+        void onSuccess(List<Car> newCars, boolean hasNext);
+        void onError(String errorMessage);
+    }
 
     // Your existing getCars logic remains exactly the same...
-    public void getCars(MutableLiveData<List<Car>> carsLiveData, MutableLiveData<String> errorLiveData) {
-        apiService.getAllCars().enqueue(new Callback<List<Car>>() {
+    public void getCars(int page, int size, DataCallback callback) {
+
+        apiService.getAllCars(page, size).enqueue(new Callback<PaginatedResponse<Car>>() {
             @Override
-            public void onResponse(Call<List<Car>> call, Response<List<Car>> response) {
+            public void onResponse(Call<PaginatedResponse<Car>> call, Response<PaginatedResponse<Car>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    carsLiveData.postValue(response.body());
+                    // Success: Pass data back to ViewModel
+                    callback.onSuccess(
+                            response.body().getItems(),
+                            response.body().hasNext()
+                    );
                 } else {
-                    errorLiveData.postValue("Error: " + response.code());
-                    Log.println(Log.ERROR,"",String.valueOf(response.code()));
+                    // Error: Pass error message
+                    callback.onError("Error Code: " + response.code());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Car>> call, Throwable t) {
-                Log.println(Log.ERROR,"++++++++++++++++", Objects.requireNonNull(t.getMessage()));
-                errorLiveData.postValue(t.getMessage());
+            public void onFailure(Call<PaginatedResponse<Car>> call, Throwable t) {
+                // Failure: Pass network error
+                callback.onError(t.getMessage());
             }
         });
     }
