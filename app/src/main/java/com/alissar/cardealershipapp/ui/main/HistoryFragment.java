@@ -31,9 +31,6 @@ public class HistoryFragment extends Fragment {
 
         // 3. Mock Data (Cars the user has "bought")
         List<Car> soldCars = new ArrayList<>();
-        soldCars.add(new Car("Toyota Corolla", "$ 22,000", R.drawable.ic_launcher_background));
-        soldCars.add(new Car("Honda Civic", "$ 25,500", R.drawable.ic_launcher_background));
-        soldCars.add(new Car("Ford F-150", "$ 45,000", R.drawable.ic_launcher_background));
 
         // 4. Set Adapter
         CarAdapter adapter = new CarAdapter(soldCars);

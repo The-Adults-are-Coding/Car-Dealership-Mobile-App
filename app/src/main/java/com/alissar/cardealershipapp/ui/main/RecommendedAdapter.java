@@ -35,17 +35,33 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RecViewHolder holder, int position) {
+        // 1. Safety Check: If list is empty, do nothing to prevent crashes
+        if (recommendedList == null || recommendedList.isEmpty()) {
+            return;
+        }
+
+        // 2. Modulo Logic: This creates the "Infinite Loop" effect.
+        // Even if 'position' is 5000, this maps it back to a valid index (0 to listSize-1)
         int actualPosition = position % recommendedList.size();
+
         Car car = recommendedList.get(actualPosition);
 
-        holder.tvName.setText(car.getName());
-        holder.tvPrice.setText(car.getPrice());
-        holder.imgCar.setImageResource(car.getImageResId());
+        // 3. Bind Data to Views
+        // Assuming your Car model has these getters
+        holder.tvName.setText(car.getFullName());
 
-        // --- ADD THIS CLICK LISTENER ---
+        // Simple formatting for price (e.g., "$ 25000")
+        holder.tvPrice.setText(car.getFormattedPrice());
+
+        // 4. Set Image (Using a placeholder for now)
+        holder.imgCar.setImageResource(R.drawable.ic_launcher_background);
+
+        // 5. Click Listener to Open Details
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), CarDetailsActivity.class);
-            intent.putExtra("car_data", (Parcelable) car); // Passes the clicked car object
+            // Pass the specific car object or ID to the next activity
+            // Ensure your Car class implements Serializable or Parcelable
+            intent.putExtra("car_data", car);
             v.getContext().startActivity(intent);
         });
     }
@@ -53,6 +69,14 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
     @Override
     public int getItemCount() {
         return Integer.MAX_VALUE;
+    }
+
+    public void updateData(List<Car> cars) {
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++");
+        System.out.println(cars.size());
+        recommendedList.clear();
+        recommendedList.addAll(cars);
+        notifyDataSetChanged();
     }
 
     static class RecViewHolder extends RecyclerView.ViewHolder {

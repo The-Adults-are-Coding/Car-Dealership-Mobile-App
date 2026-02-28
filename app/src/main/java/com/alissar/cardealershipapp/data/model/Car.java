@@ -3,25 +3,48 @@ package com.alissar.cardealershipapp.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Car implements Parcelable {
-    private String name;
-    private String price;
-    // In a real app, you would use a String URL for images
-    private int imageResId;
+import com.google.gson.annotations.SerializedName;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.Objects;
 
-    public Car(String name, String price, int imageResId) {
-        this.name = name;
-        this.price = price;
-        this.imageResId = imageResId;
+public class Car implements Parcelable {
+    @SerializedName("carId")
+    private int carId;
+
+    @SerializedName("manufacturer")
+    private String manufacturer;
+
+    @SerializedName("modelName")
+    private String modelName;
+
+    @SerializedName("carYear")
+    private int carYear;
+
+    @SerializedName("color")
+    private String color;
+
+    @SerializedName("carCondition")
+    private String carCondition;
+
+    @SerializedName("price")
+    private double price;
+
+    @SerializedName("mileage")
+    private int mileage;
+
+    // --- Helper Methods for UI ---
+    public String getFullName() {
+        return manufacturer + " " + modelName;
     }
 
-    public String getName() { return name; }
-    public String getPrice() { return price; }
-    public int getImageResId() { return imageResId; }
+    public String getFormattedPrice() {
+        return NumberFormat.getCurrencyInstance(Locale.US).format(price);
+    }
+
     protected Car(Parcel in) {
-        name = in.readString();
-        price = in.readString();
-        imageResId = in.readInt();
+        modelName = in.readString();
+        price = Double.parseDouble(Objects.requireNonNull(in.readString()));
     }
 
     public static final Creator<Car> CREATOR = new Creator<Car>() {
@@ -43,8 +66,9 @@ public class Car implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(price);
-        dest.writeInt(imageResId);
+        dest.writeString(modelName);
+        dest.writeString(String.valueOf(price));
     }
+
+    // You can generate Getters/Setters here if needed
 }

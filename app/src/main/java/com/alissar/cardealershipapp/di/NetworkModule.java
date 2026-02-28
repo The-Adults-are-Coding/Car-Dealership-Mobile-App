@@ -1,5 +1,7 @@
 package com.alissar.cardealershipapp.di;
 
+import static com.alissar.cardealershipapp.utils.Constants.BASE_URL;
+
 import com.alissar.cardealershipapp.data.remote.CarApiService;
 import com.alissar.cardealershipapp.utils.Constants;
 
@@ -24,27 +26,36 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public static OkHttpClient provideOkHttpClient() {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+    public static OkHttpClient provideOkHttpClient(AuthInterceptor authInterceptor,HttpLoggingInterceptor loggingInterceptor) {
+
         return new OkHttpClient.Builder()
-                .addInterceptor(logging)
+                .addInterceptor(authInterceptor)
+                .addInterceptor(loggingInterceptor)
                 .build();
     }
 
     @Provides
     @Singleton
-    public static Retrofit provideRetrofit(OkHttpClient okHttpClient) {
+    public HttpLoggingInterceptor provideLoggingInterceptor() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        // Set to BODY to see the full JSON response in Logcat
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return interceptor;
+    }
+
+    @Provides
+    @Singleton
+    public static Retrofit provideRetrofit(OkHttpClient client) {
         return new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
+                .client(client)
                 .build();
     }
 
     @Provides
     @Singleton
-    public static CarApiService provideCarApiService(Retrofit retrofit) {
+    public CarApiService provideCarApiService(Retrofit retrofit) {
         return retrofit.create(CarApiService.class);
     }
 
@@ -52,5 +63,15 @@ public class NetworkModule {
     @Singleton
     public static AuthApiService provideAuthApiService(Retrofit retrofit) {
         return retrofit.create(AuthApiService.class);
+    }
+
+    public static CarApiService getService(Retrofit retrofit) {
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofit.create(CarApiService.class);
     }
 }

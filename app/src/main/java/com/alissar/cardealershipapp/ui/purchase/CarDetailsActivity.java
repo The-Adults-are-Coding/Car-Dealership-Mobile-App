@@ -48,10 +48,9 @@ public class CarDetailsActivity extends AppCompatActivity {
         TextView tvColor = findViewById(R.id.tvColor);
         TextView tvEngine = findViewById(R.id.tvEngine);
 
-        ivCarImage.setImageResource(car.getImageResId());
         //tvManufacturer.setText(car.getManufacturer());
-        tvCarName.setText(car.getName());
-        tvPrice.setText(car.getPrice());
+        tvCarName.setText(car.getFullName());
+        tvPrice.setText(car.getFormattedPrice());
         //tvModel.setText(car.getModel());
         //tvCondition.setText(car.getCondition());
         //tvColor.setText(car.getColor());
@@ -85,7 +84,7 @@ public class CarDetailsActivity extends AppCompatActivity {
         double balance = Double.parseDouble(balanceStr.replace(",", ""));
 
         // Parse car price (removing $ and commas)
-        String cleanPrice = car.getPrice().replaceAll("[^\\d.]", "");
+        String cleanPrice = car.getFormattedPrice().replaceAll("[^\\d.]", "");
         double carPrice = Double.parseDouble(cleanPrice);
 
         if (balance >= carPrice) {
@@ -93,7 +92,7 @@ public class CarDetailsActivity extends AppCompatActivity {
             double newBalance = balance - carPrice;
             prefs.edit().putString("balance", String.valueOf(newBalance)).apply();
 
-            showResultDialog("Success!", "You have successfully purchased the " + car.getName() + ".");
+            showResultDialog("Success!", "You have successfully purchased the " + car.getFullName() + ".");
         } else {
             showResultDialog("Insufficient Funds", "Your balance is too low to purchase this vehicle.");
         }
@@ -108,7 +107,7 @@ public class CarDetailsActivity extends AppCompatActivity {
                 .setItems(months, (dialog, which) -> {
                     int monthsToPay = selectedMonths[which];
 
-                    String cleanPrice = car.getPrice().replaceAll("[^\\d.]", "");
+                    String cleanPrice = car.getFormattedPrice().replaceAll("[^\\d.]", "");
                     double carPrice = Double.parseDouble(cleanPrice);
                     double monthlyPayment = carPrice / monthsToPay;
 

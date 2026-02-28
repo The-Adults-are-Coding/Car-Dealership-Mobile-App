@@ -11,4 +11,11 @@ public interface CarApiService {
     Call<List<Car>> getCars();
     @GET("fiveCars")
     Call<List<Car>> getFiveCars();
+
+    // The relative path from the Base URL
+    @GET("Car/getAllCars")
+    Call<List<Car>> getAllCars();
+    @GET("Car/getAdbanner")
+    Call<List<Car>> getAdbanner();
+
 }
