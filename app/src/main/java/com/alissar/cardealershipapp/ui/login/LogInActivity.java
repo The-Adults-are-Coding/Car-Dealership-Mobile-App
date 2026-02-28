@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,7 +21,7 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-@AndroidEntryPoint // <--- STEP 1: MUST HAVE THIS ANNOTATION
+@AndroidEntryPoint
 
 public class LogInActivity extends AppCompatActivity {
 
@@ -29,6 +30,7 @@ public class LogInActivity extends AppCompatActivity {
     private LoginViewModel viewModel;
     @Inject
     SessionManager sessionManager;
+    private TextView goToRegisterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class LogInActivity extends AppCompatActivity {
         etName = findViewById(R.id.etName);
         etPassword = findViewById(R.id.etPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
+        goToRegisterButton = findViewById(R.id.go_to_register);
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         // Initial state
@@ -66,6 +69,9 @@ public class LogInActivity extends AppCompatActivity {
             String name = etName.getText().toString();
             String pass = etPassword.getText().toString();
             performLogin(name, pass);
+        });
+        goToRegisterButton.setOnClickListener(v->{
+            startActivity(new Intent(this, UserRegister.class));
         });
     }
 
