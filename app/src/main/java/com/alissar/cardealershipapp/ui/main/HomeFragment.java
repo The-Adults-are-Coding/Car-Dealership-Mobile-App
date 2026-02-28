@@ -28,6 +28,7 @@ public class HomeFragment extends Fragment {
 
     private ViewPager2 viewPagerRecommended;
     private Handler sliderHandler = new Handler(Looper.getMainLooper());
+     private final
 
     @Nullable
     @Override
@@ -38,9 +39,6 @@ public class HomeFragment extends Fragment {
         viewPagerRecommended = view.findViewById(R.id.viewPagerRecommended);
 
         List<Car> recommendedCars = new ArrayList<>();
-        recommendedCars.add(new Car("Ferrari 488", "$ 280,000", R.drawable.ic_launcher_background));
-        recommendedCars.add(new Car("Lamborghini Huracan", "$ 310,000", R.drawable.ic_launcher_background));
-        recommendedCars.add(new Car("Porsche 911", "$ 190,000", R.drawable.ic_launcher_background));
 
         RecommendedAdapter recAdapter = new RecommendedAdapter(recommendedCars);
         viewPagerRecommended.setAdapter(recAdapter);
@@ -48,7 +46,7 @@ public class HomeFragment extends Fragment {
         // Start in the middle so user can scroll left immediately
         // (Integer.MAX_VALUE / 2) adjusted to be the start of the list
         int midPoint = Integer.MAX_VALUE / 2;
-        int startPosition = midPoint - (midPoint % recommendedCars.size());
+        int startPosition = midPoint ;
         viewPagerRecommended.setCurrentItem(startPosition, false);
 
         // OPTIONAL: Add a PageTransformer for a cool animation effect
@@ -73,10 +71,6 @@ public class HomeFragment extends Fragment {
 
 // 3. Set Adapter as before
         List<Car> availableCars = new ArrayList<>();
-        availableCars.add(new Car("Mercedes C-Class", "$ 42,000", R.drawable.ic_launcher_background));
-        availableCars.add(new Car("Audi A4", "$ 39,500", R.drawable.ic_launcher_background));
-        availableCars.add(new Car("Tesla Model 3", "$ 41,000", R.drawable.ic_launcher_background));
-        availableCars.add(new Car("BMW 3 Series", "$ 44,000", R.drawable.ic_launcher_background));
 
         CarAdapter adapter = new CarAdapter(availableCars);
         recyclerView.setAdapter(adapter);
