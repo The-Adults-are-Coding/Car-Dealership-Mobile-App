@@ -35,19 +35,7 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RecViewHolder holder, int position) {
-        int actualPosition = position % recommendedList.size();
-        Car car = recommendedList.get(actualPosition);
 
-        holder.tvName.setText(car.getName());
-        holder.tvPrice.setText(car.getPrice());
-        holder.imgCar.setImageResource(car.getImageResId());
-
-        // --- ADD THIS CLICK LISTENER ---
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), CarDetailsActivity.class);
-            intent.putExtra("car_data", (Parcelable) car); // Passes the clicked car object
-            v.getContext().startActivity(intent);
-        });
     }
 
     @Override

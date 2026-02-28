@@ -14,6 +14,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.alissar.cardealershipapp.R;
 import com.alissar.cardealershipapp.ui.main.MainActivity;
+import com.alissar.cardealershipapp.utils.SessionManager;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -24,6 +27,8 @@ public class LogInActivity extends AppCompatActivity {
     private EditText etName, etPassword;
     private Button btnSignIn;
     private LoginViewModel viewModel;
+    @Inject
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,7 @@ public class LogInActivity extends AppCompatActivity {
                     startActivity(new Intent(this, MainActivity.class));
                     Toast.makeText(LogInActivity.this, "Welcome back, " + name + "!", Toast.LENGTH_SHORT).show();
 
+                    sessionManager.saveToken(resource.data.getToken());
                     finish();
                     break;
                 case ERROR:

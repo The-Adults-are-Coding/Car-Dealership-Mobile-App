@@ -68,7 +68,7 @@ public class UserRegister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registerCustomer();
-                handleRegistration();
+                //handleRegistration();
             }
         });
 
@@ -226,36 +226,36 @@ public class UserRegister extends AppCompatActivity {
         editTextOccupation.setError(null);
     }
 
-    private void handleRegistration() {
-        String name = etName.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
-        String phone = etPhone.getText().toString().trim();
-
-        // Basic Validation
-        if (name.isEmpty() || email.isEmpty() || password.length() < 6) {
-            Toast.makeText(this, "Please fill all fields correctly", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        viewModel.register(name, email, password, phone).observe(this, resource -> {
-            switch (resource.status) {
-                case LOADING:
-                    btnRegister.setEnabled(false);
-                    progressBar.setVisibility(View.VISIBLE);
-                    break;
-                case SUCCESS:
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
-                    // Navigate to Login or Main
-                    finish();
-                    break;
-                case ERROR:
-                    btnRegister.setEnabled(true);
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(this, resource.message, Toast.LENGTH_LONG).show();
-                    break;
-            }
-        });
-    }
+//    private void handleRegistration() {
+//        String name = etName.getText().toString().trim();
+//        String email = etEmail.getText().toString().trim();
+//        String password = etPassword.getText().toString().trim();
+//        String phone = etPhone.getText().toString().trim();
+//
+//        // Basic Validation
+//        if (name.isEmpty() || email.isEmpty() || password.length() < 6) {
+//            Toast.makeText(this, "Please fill all fields correctly", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        viewModel.register(name, email, password, phone).observe(this, resource -> {
+//            switch (resource.status) {
+//                case LOADING:
+//                    btnRegister.setEnabled(false);
+//                    progressBar.setVisibility(View.VISIBLE);
+//                    break;
+//                case SUCCESS:
+//                    progressBar.setVisibility(View.GONE);
+//                    Toast.makeText(this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
+//                    // Navigate to Login or Main
+//                    finish();
+//                    break;
+//                case ERROR:
+//                    btnRegister.setEnabled(true);
+//                    progressBar.setVisibility(View.GONE);
+//                    Toast.makeText(this, resource.message, Toast.LENGTH_LONG).show();
+//                    break;
+//            }
+//        });
+//    }
 }
