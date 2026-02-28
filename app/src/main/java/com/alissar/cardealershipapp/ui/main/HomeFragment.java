@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,10 +22,12 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.alissar.cardealershipapp.R;
 import com.alissar.cardealershipapp.data.model.Car;
 import com.alissar.cardealershipapp.ui.inventory.CarInventoryActivity;
+import com.alissar.cardealershipapp.utils.SessionManager;
 import com.alissar.cardealershipapp.utils.adapters.CarAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -34,6 +37,7 @@ public class HomeFragment extends Fragment {
     private ViewPager2 viewPagerRecommended;
     private Handler sliderHandler = new Handler(Looper.getMainLooper());
      private HomeViewModel viewModel;
+     private TextView tvBalance;
 
 
     @Nullable
@@ -43,6 +47,7 @@ public class HomeFragment extends Fragment {
 
         // --- 1. Setup Circular Auto-Scrolling Ad Bar ---
         viewPagerRecommended = view.findViewById(R.id.viewPagerRecommended);
+        tvBalance = view.findViewById(R.id.tvBalance);
 
         List<Car> recommendedCars = new ArrayList<>();
 
@@ -109,6 +114,9 @@ public class HomeFragment extends Fragment {
                 adapter.updateData(cars);
             }
         });
+        viewModel.getBalanceValue().observe(getViewLifecycleOwner(),balance ->{
+            tvBalance.setText(String.valueOf(balance));
+        });
 
         viewModel.getErrorMessage().observe(getViewLifecycleOwner(), message -> {
             if (message != null) {
@@ -116,7 +124,8 @@ public class HomeFragment extends Fragment {
                 System.out.println(message);
             }
         });
-
+        SessionManager sessionManager = new SessionManager(requireContext());
+        viewModel.getBalance(sessionManager.getId());
         viewModel.getAdbanner();
         viewModel.getFiveCar();
 

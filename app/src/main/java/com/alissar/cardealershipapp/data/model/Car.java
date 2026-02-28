@@ -2,13 +2,12 @@ package com.alissar.cardealershipapp.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.google.gson.annotations.SerializedName;
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.Objects;
 
-public class Car implements Parcelable {
+public class Car implements Parcelable { // Removed Serializable (Parcelable is enough)
+
     @SerializedName("carId")
     private int carId;
 
@@ -33,18 +32,38 @@ public class Car implements Parcelable {
     @SerializedName("mileage")
     private int mileage;
 
-    // --- Helper Methods for UI ---
-    public String getFullName() {
-        return manufacturer + " " + modelName;
-    }
+    // --- 1. Empty Constructor (Needed for Gson sometimes) ---
+    public Car() {}
 
-    public String getFormattedPrice() {
-        return NumberFormat.getCurrencyInstance(Locale.US).format(price);
-    }
-
+    // --- 2. Parcelable Constructor (Reading data) ---
+    // MUST READ IN THE SAME ORDER AS WROTE
     protected Car(Parcel in) {
+        carId = in.readInt();
+        manufacturer = in.readString();
         modelName = in.readString();
-        price = Double.parseDouble(Objects.requireNonNull(in.readString()));
+        carYear = in.readInt();
+        color = in.readString();
+        carCondition = in.readString();
+        price = in.readDouble();
+        mileage = in.readInt();
+    }
+
+    // --- 3. writeToParcel (Saving data) ---
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(carId);
+        dest.writeString(manufacturer);
+        dest.writeString(modelName);
+        dest.writeInt(carYear);
+        dest.writeString(color);
+        dest.writeString(carCondition);
+        dest.writeDouble(price);
+        dest.writeInt(mileage);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Car> CREATOR = new Creator<Car>() {
@@ -59,16 +78,20 @@ public class Car implements Parcelable {
         }
     };
 
-    @Override
-    public int describeContents() {
-        return 0;
+    // --- Getters ---
+    public String getFullName() {
+        return manufacturer + " " + modelName;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(modelName);
-        dest.writeString(String.valueOf(price));
+    public String getFormattedPrice() {
+        return NumberFormat.getCurrencyInstance(Locale.US).format(price);
     }
 
-    // You can generate Getters/Setters here if needed
+    public String getModelName() { return modelName; }
+    public String getManufacturer() { return manufacturer; }
+    public String getColor() { return color; }
+    public String getCondition() { return carCondition; }
+    public double getPrice() { return price; }
+    public int getCarYear() { return carYear; }
+    public int getMileage() { return mileage; }
 }

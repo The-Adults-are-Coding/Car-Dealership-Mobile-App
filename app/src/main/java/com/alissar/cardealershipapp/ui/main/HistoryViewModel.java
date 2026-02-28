@@ -1,6 +1,6 @@
 package com.alissar.cardealershipapp.ui.main;
 
- // Check your package
+// Check your package
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -17,26 +17,19 @@ import dagger.hilt.android.lifecycle.HiltViewModel; // Import this
 
 // --- HILT CHANGE 1: Add Annotation ---
 @HiltViewModel
-public class HomeViewModel extends ViewModel {
+public class HistoryViewModel extends ViewModel {
 
-    private final CarRepository repository;
-    private final CustomerRepository customerRepository;
-    private final MutableLiveData<List<Car>> adBanner = new MutableLiveData<>();
+    private final CustomerRepository repository;
     private final MutableLiveData<List<Car>> carList = new MutableLiveData<>();
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
-    private final MutableLiveData<Double> balance = new MutableLiveData<>();
-
     // --- HILT CHANGE 2: Add @Inject to constructor ---
     @Inject
-    public HomeViewModel(CarRepository repository, CustomerRepository customerRepository) {
+    public HistoryViewModel(CustomerRepository repository) {
         this.repository = repository;
-        this.customerRepository = customerRepository;
     }
 
-    public LiveData<List<Car>> getCarList() {
-        return adBanner;
-    }
+
     public LiveData<List<Car>> getFiveCarList() {
         return carList;
     }
@@ -45,19 +38,9 @@ public class HomeViewModel extends ViewModel {
         return errorMessage;
     }
 
-    public LiveData<Double> getBalanceValue(){
-        return balance;
-    }
 
-    public void getAdbanner() {
-        repository.getAdbanner(adBanner, errorMessage);
-    }
-    public void getFiveCar()
+    public void getHistory()
     {
-        repository.getFiveCar(carList,errorMessage);
-    }
-
-    public void getBalance(String id){
-        customerRepository.getBalance(balance,errorMessage,id);
+        repository.getHistory(carList,errorMessage);
     }
 }

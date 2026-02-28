@@ -2,8 +2,11 @@ package com.alissar.cardealershipapp.di;
 
 import com.alissar.cardealershipapp.data.remote.AuthApiService;
 import com.alissar.cardealershipapp.data.remote.CarApiService;
+import com.alissar.cardealershipapp.data.remote.CustomerApiService;
 import com.alissar.cardealershipapp.data.repository.AuthRepository;
 import com.alissar.cardealershipapp.data.repository.CarRepository;
+import com.alissar.cardealershipapp.data.repository.CustomerRepository;
+
 import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
@@ -24,5 +27,11 @@ public class AppModule {
     @Singleton
     public static AuthRepository provideAuthRepository(AuthApiService apiService) {
         return new AuthRepository(apiService);
+    }
+
+    @Provides
+    @Singleton
+    public static CustomerRepository provideCustomerRepository(CustomerApiService apiService) {
+        return new CustomerRepository(apiService);
     }
 }

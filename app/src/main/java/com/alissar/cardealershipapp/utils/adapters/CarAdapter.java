@@ -14,6 +14,7 @@ import com.alissar.cardealershipapp.R;
 import com.alissar.cardealershipapp.data.model.Car;
 import com.alissar.cardealershipapp.ui.purchase.CarDetailsActivity;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
@@ -41,6 +42,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
         // --- ADD THIS CLICK LISTENER ---
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), CarDetailsActivity.class);
+            System.out.println(car.getFullName());
+            System.out.println(car.getColor());
             intent.putExtra("car_data", car); // Passes the car object
             v.getContext().startActivity(intent);
         });

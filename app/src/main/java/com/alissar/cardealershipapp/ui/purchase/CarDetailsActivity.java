@@ -28,7 +28,7 @@ public class CarDetailsActivity extends AppCompatActivity {
         prefs = getSharedPreferences("UserProfile", MODE_PRIVATE);
 
         // Get Car object from Intent
-        car = (Car) getIntent().getSerializableExtra("car_data");
+        car =  getIntent().getParcelableExtra("car_data");
 
         if (car != null) {
             setupUI();
@@ -48,13 +48,12 @@ public class CarDetailsActivity extends AppCompatActivity {
         TextView tvColor = findViewById(R.id.tvColor);
         TextView tvEngine = findViewById(R.id.tvEngine);
 
-        //tvManufacturer.setText(car.getManufacturer());
         tvCarName.setText(car.getFullName());
         tvPrice.setText(car.getFormattedPrice());
-        //tvModel.setText(car.getModel());
-        //tvCondition.setText(car.getCondition());
-        //tvColor.setText(car.getColor());
-        //tvEngine.setText(car.getEngine());
+        tvModel.setText(String.valueOf(car.getCarYear()));
+        tvCondition.setText(car.getCondition());
+        tvColor.setText(car.getColor());
+        tvEngine.setText(String.valueOf(car.getMileage()));
     }
 
     private void showPaymentMethodDialog() {

@@ -11,6 +11,7 @@ public class SessionManager {
     private SharedPreferences prefs;
     private static final String PREF_NAME = "user_session";
     private static final String KEY_TOKEN = "jwt_token";
+    private static final String ID = "id";
 
     @Inject
     public SessionManager(@ApplicationContext Context context) {
@@ -21,8 +22,18 @@ public class SessionManager {
         prefs.edit().putString(KEY_TOKEN, token).apply();
     }
 
+    public void saveId(String id){
+        prefs.edit().putString(ID,id).apply();
+    }
+
     public String getToken() {
         return prefs.getString(KEY_TOKEN, null);
+    }
+
+    public String getId(){
+
+
+        return prefs.getString(ID,null);
     }
 
     public void clearSession() {

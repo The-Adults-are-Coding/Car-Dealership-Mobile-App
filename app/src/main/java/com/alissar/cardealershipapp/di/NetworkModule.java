@@ -3,6 +3,7 @@ package com.alissar.cardealershipapp.di;
 import static com.alissar.cardealershipapp.utils.Constants.BASE_URL;
 
 import com.alissar.cardealershipapp.data.remote.CarApiService;
+import com.alissar.cardealershipapp.data.remote.CustomerApiService;
 import com.alissar.cardealershipapp.utils.Constants;
 
 import java.util.concurrent.TimeUnit;
@@ -63,6 +64,12 @@ public class NetworkModule {
     @Singleton
     public static AuthApiService provideAuthApiService(Retrofit retrofit) {
         return retrofit.create(AuthApiService.class);
+    }
+
+    @Provides
+    @Singleton
+    public CustomerApiService provideCustomerApiService(Retrofit retrofit) {
+        return retrofit.create(CustomerApiService.class);
     }
 
     public static CarApiService getService(Retrofit retrofit) {

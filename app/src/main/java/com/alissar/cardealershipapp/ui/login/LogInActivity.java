@@ -96,6 +96,8 @@ public class LogInActivity extends AppCompatActivity {
                     Toast.makeText(LogInActivity.this, "Welcome back, " + name + "!", Toast.LENGTH_SHORT).show();
 
                     sessionManager.saveToken(resource.data.getToken());
+                    sessionManager.saveId(resource.data.getId());
+
                     finish();
                     break;
                 case ERROR:

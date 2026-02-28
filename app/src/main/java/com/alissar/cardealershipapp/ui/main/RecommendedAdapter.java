@@ -61,7 +61,7 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
             Intent intent = new Intent(v.getContext(), CarDetailsActivity.class);
             // Pass the specific car object or ID to the next activity
             // Ensure your Car class implements Serializable or Parcelable
-            intent.putExtra("car_data", car);
+            intent.putExtra("car_data",(Parcelable) car);
             v.getContext().startActivity(intent);
         });
     }
