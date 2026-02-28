@@ -70,4 +70,23 @@ public class CarRepository {
             }
         });
     }
+    public void getFiveCar(MutableLiveData<List<Car>> carsLiveData, MutableLiveData<String> errorLiveData) {
+        apiService.getFiveCars().enqueue(new Callback<List<Car>>() {
+            @Override
+            public void onResponse(Call<List<Car>> call, Response<List<Car>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    carsLiveData.postValue(response.body());
+                } else {
+                    errorLiveData.postValue("Error: " + response.code());
+                    Log.println(Log.ERROR,"",String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Car>> call, Throwable t) {
+                Log.println(Log.ERROR,"++++++++++++++++", Objects.requireNonNull(t.getMessage()));
+                errorLiveData.postValue(t.getMessage());
+            }
+        });
+    }
 }

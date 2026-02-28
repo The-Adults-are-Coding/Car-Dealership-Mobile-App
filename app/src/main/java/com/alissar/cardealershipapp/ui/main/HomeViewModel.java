@@ -31,6 +31,9 @@ public class HomeViewModel extends ViewModel {
     public LiveData<List<Car>> getCarList() {
         return carList;
     }
+    public LiveData<List<Car>> getFiveCarList() {
+        return carList;
+    }
 
     public LiveData<String> getErrorMessage() {
         return errorMessage;
@@ -38,5 +41,9 @@ public class HomeViewModel extends ViewModel {
 
     public void getAdbanner() {
         repository.getAdbanner(carList, errorMessage);
+    }
+    public void getFiveCar()
+    {
+        repository.getFiveCar(carList,errorMessage);
     }
 }

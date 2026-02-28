@@ -9,6 +9,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface CarApiService {
+    @GET("cars") // Endpoint: https://your-api.com/cars
+    Call<List<Car>> getCars();
+    @GET("fiveCars")
+    Call<List<Car>> getFiveCars();
 
     // The relative path from the Base URL
     @GET("Car/getAllCars")
