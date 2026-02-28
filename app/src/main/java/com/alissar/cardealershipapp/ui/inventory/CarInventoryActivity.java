@@ -1,7 +1,10 @@
 package com.alissar.cardealershipapp.ui.inventory;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,10 +38,43 @@ public class CarInventoryActivity extends AppCompatActivity {
         // This line caused the crash before.
         // Now that @AndroidEntryPoint and @HiltViewModel are added, it will work.
         viewModel = new ViewModelProvider(this).get(InventoryViewModel.class);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
 
+                if(dy > 0){
+                    System.out.println("dx: " + dx +" dy: " + dy + ", isLoading: " + viewModel.isLoading);
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    if (layoutManager != null) {
+                        int visibleItemCount = layoutManager.getChildCount();
+                        int totalItemCount = layoutManager.getItemCount();
+                        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+                        // --- DEBUG LOGS ---
+                        // Look at this in Logcat!
+                        System.out.println("SCROLL_DEBUG: dy=" + dy +
+                                " | visible=" + visibleItemCount +
+                                " | first=" + firstVisibleItemPosition +
+                                " | total=" + totalItemCount +
+                                " | isLoading=" + viewModel.isLoading);
+                        // Check if we are at the bottom
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                                && firstVisibleItemPosition >= 0
+                                ) { // Only load if we have enough items to scroll
+
+                            // Ask ViewModel for more
+                            viewModel.loadNextPage();
+                        }
+                    }
+                }
+            }
+        });
+
+        // 2. Observe Data
         viewModel.getCarList().observe(this, cars -> {
             if (cars != null) {
-                adapter.updateData(cars);
+                adapter.addData(cars);
             }
         });
 
@@ -48,6 +84,6 @@ public class CarInventoryActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.fetchCars();
+        viewModel.loadNextPage();
     }
 }
