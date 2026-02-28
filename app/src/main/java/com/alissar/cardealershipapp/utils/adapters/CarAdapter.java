@@ -35,9 +35,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
         Car car = carList.get(position);
-        holder.tvName.setText(car.getName());
-        holder.tvPrice.setText(car.getPrice());
-        holder.imgCar.setImageResource(car.getImageResId());
+        holder.tvName.setText(car.getFullName());
+        holder.tvPrice.setText(car.getFormattedPrice());
 
         // --- ADD THIS CLICK LISTENER ---
         holder.itemView.setOnClickListener(v -> {
@@ -62,5 +61,10 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
             tvPrice = itemView.findViewById(R.id.tvCarPrice);
             imgCar = itemView.findViewById(R.id.imgCar);
         }
+    }
+
+    public void updateData(List<Car> newCars) {
+        this.carList = newCars;
+        notifyDataSetChanged();
     }
 }

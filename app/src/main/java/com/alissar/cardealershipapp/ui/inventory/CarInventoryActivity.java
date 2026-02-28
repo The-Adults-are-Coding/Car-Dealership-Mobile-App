@@ -1,57 +1,53 @@
 package com.alissar.cardealershipapp.ui.inventory;
 
 import android.os.Bundle;
-import android.view.MenuItem;
-
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alissar.cardealershipapp.R;
-import com.alissar.cardealershipapp.data.model.Car;
 import com.alissar.cardealershipapp.utils.adapters.CarAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint; // Import this
+
+// --- HILT CHANGE: Must have this annotation ---
+@AndroidEntryPoint
 public class CarInventoryActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private CarAdapter adapter;
+    private InventoryViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_inventroy);
-        RecyclerView recyclerView = findViewById(R.id.recyclerAllCars);
-        Toolbar toolbar = findViewById(R.id.toolbarInventory);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+        setContentView(R.layout.activity_car_inventroy); // Or your main layout
 
-
-
-// 1. Use VERTICAL layout (Default)
-        LinearLayoutManager layoutManager = new LinearLayoutManager(CarInventoryActivity.this);
-// Note: We removed LinearLayoutManager.HORIZONTAL
-
-        recyclerView.setLayoutManager(layoutManager);
-
-        // Initialize and set the adapter for the RecyclerView
-        List<Car> cars = new ArrayList<>();
-        cars.add(new Car("Mercedes C-Class", "$ 42,000", R.drawable.ic_launcher_background));
-        cars.add(new Car("Audi A4", "$ 39,500", R.drawable.ic_launcher_background));
-        cars.add(new Car("Tesla Model 3", "$ 41,000", R.drawable.ic_launcher_background));
-        cars.add(new Car("BMW 3 Series", "$ 44,000", R.drawable.ic_launcher_background));// Replace with your data source
-        CarAdapter adapter = new CarAdapter(cars);
+        recyclerView = findViewById(R.id.recyclerAllCars);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new CarAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // Closes this activity and returns to Home
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        // This line caused the crash before.
+        // Now that @AndroidEntryPoint and @HiltViewModel are added, it will work.
+        viewModel = new ViewModelProvider(this).get(InventoryViewModel.class);
+
+        viewModel.getCarList().observe(this, cars -> {
+            if (cars != null) {
+                adapter.updateData(cars);
+            }
+        });
+
+        viewModel.getErrorMessage().observe(this, message -> {
+            if (message != null) {
+                Toast.makeText(this, "Error: " + message, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        viewModel.fetchCars();
     }
 }
