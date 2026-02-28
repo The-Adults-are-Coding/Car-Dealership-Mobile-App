@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import com.alissar.cardealershipapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     @Override

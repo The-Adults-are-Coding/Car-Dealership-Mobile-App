@@ -26,11 +26,21 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public static OkHttpClient provideOkHttpClient(AuthInterceptor authInterceptor) {
+    public static OkHttpClient provideOkHttpClient(AuthInterceptor authInterceptor,HttpLoggingInterceptor loggingInterceptor) {
 
         return new OkHttpClient.Builder()
                 .addInterceptor(authInterceptor)
+                .addInterceptor(loggingInterceptor)
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    public HttpLoggingInterceptor provideLoggingInterceptor() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        // Set to BODY to see the full JSON response in Logcat
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return interceptor;
     }
 
     @Provides

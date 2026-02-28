@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.alissar.cardealershipapp.R;
 import com.alissar.cardealershipapp.ui.main.MainActivity;
+import com.alissar.cardealershipapp.ui.register.UserRegister;
 import com.alissar.cardealershipapp.utils.SessionManager;
 
 import javax.inject.Inject;

@@ -36,7 +36,7 @@ public class HomeViewModel extends ViewModel {
         return errorMessage;
     }
 
-    public void fetchCars() {
-        repository.getCars(carList, errorMessage);
+    public void getAdbanner() {
+        repository.getAdbanner(carList, errorMessage);
     }
 }

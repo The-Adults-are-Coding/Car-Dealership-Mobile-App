@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -24,11 +26,15 @@ import com.alissar.cardealershipapp.utils.adapters.CarAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class HomeFragment extends Fragment {
 
     private ViewPager2 viewPagerRecommended;
     private Handler sliderHandler = new Handler(Looper.getMainLooper());
-     private final
+     private HomeViewModel viewModel;
+
 
     @Nullable
     @Override
@@ -43,17 +49,9 @@ public class HomeFragment extends Fragment {
         RecommendedAdapter recAdapter = new RecommendedAdapter(recommendedCars);
         viewPagerRecommended.setAdapter(recAdapter);
 
-        // Start in the middle so user can scroll left immediately
-        // (Integer.MAX_VALUE / 2) adjusted to be the start of the list
-        int midPoint = Integer.MAX_VALUE / 2;
-        int startPosition = midPoint ;
-        viewPagerRecommended.setCurrentItem(startPosition, false);
 
         // OPTIONAL: Add a PageTransformer for a cool animation effect
-        viewPagerRecommended.setPageTransformer((page, position) -> {
-            float scaleFactor = 0.85f + (1 - Math.abs(position)) * 0.15f;
-            page.setScaleY(0.85f + scaleFactor * 0.15f);
-        });
+
 
         // --- 2. Setup Available Cars (Normal Horizontal List) ---
         // Inside onCreateView...
@@ -84,6 +82,37 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(getActivity(), CarInventoryActivity.class);
             startActivity(intent);
         });
+
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+        viewModel.getCarList().observe(getViewLifecycleOwner(), cars -> {
+            if (cars != null) {
+                System.out.println(cars.size());
+                recAdapter.updateData(cars);
+
+                // --- CRITICAL FIX: Set position AFTER data loads ---
+                // We calculate the midpoint to allow infinite scrolling
+                int midPoint = Integer.MAX_VALUE / 2;
+                // Adjust so the first item shown is index 0 of your list
+                int startPosition = midPoint - (midPoint % cars.size());
+                viewPagerRecommended.setCurrentItem(startPosition, false);
+                viewPagerRecommended.setPageTransformer((page, position) -> {
+                    float scaleFactor = 0.85f + (1 - Math.abs(position)) * 0.15f;
+                    page.setScaleY(0.85f + scaleFactor * 0.15f);
+                });
+
+                recAdapter.updateData(cars);
+            }
+        });
+
+        viewModel.getErrorMessage().observe(getViewLifecycleOwner(), message -> {
+            if (message != null) {
+                Toast.makeText(getContext(), "Error: " + message, Toast.LENGTH_SHORT).show();
+                System.out.println(message);
+            }
+        });
+
+        viewModel.getAdbanner();
 
         return view;
     }
