@@ -104,6 +104,11 @@ public class HomeFragment extends Fragment {
                 recAdapter.updateData(cars);
             }
         });
+        viewModel.getFiveCarList().observe(getViewLifecycleOwner(), cars -> {
+            if (cars != null) {
+                adapter.updateData(cars);
+            }
+        });
 
         viewModel.getErrorMessage().observe(getViewLifecycleOwner(), message -> {
             if (message != null) {
@@ -113,6 +118,7 @@ public class HomeFragment extends Fragment {
         });
 
         viewModel.getAdbanner();
+        viewModel.getFiveCar();
 
         return view;
     }
