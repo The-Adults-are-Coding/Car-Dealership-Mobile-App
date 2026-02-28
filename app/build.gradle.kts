@@ -51,6 +51,7 @@ dependencies {
     // Hilt Dependency Injection
 
     implementation ("com.google.dagger:hilt-android:2.48")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
     annotationProcessor ("com.google.dagger:hilt-compiler:2.48")
     annotationProcessor ("com.google.dagger:hilt-android-gradle-plugin:2.48")
 }
