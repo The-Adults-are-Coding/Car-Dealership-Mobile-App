@@ -9,4 +9,6 @@ import retrofit2.http.GET;
 public interface CarApiService {
     @GET("cars") // Endpoint: https://your-api.com/cars
     Call<List<Car>> getCars();
+    @GET("fiveCars")
+    Call<List<Car>> getFiveCars();
 }
